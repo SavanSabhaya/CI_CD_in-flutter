@@ -1,11 +1,10 @@
-To add CI/CD into git for Flutter:
+# To add CI/CD into git for Flutter:
 
--  Create project and upload it to Git
+# -  Create project and upload it to Git
 
-- Go to Action > Dart (configure) > find Flutter Action from Marketplace
+# - Go to Action > Dart (configure) > find Flutter Action from Marketplace
 
-- Then Create main.yaml file and add below script:
-
+# - Then Create main.yaml file and add below script:
 on: push
 name: Test, Build and Release apk
 jobs:
