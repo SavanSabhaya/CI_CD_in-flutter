@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '16'
+          java-version: '17'
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.10.4'
@@ -28,8 +28,6 @@ jobs:
         with:
           artifacts: "build/app/outputs/flutter-apk/app-profile.apk"
           token: ${{ secrets.TOKEN }}
-          commit: master
-          tag: v1.0.0
 # - To get Token, go git project setting > Secrets and variables > Actions> Secrets > New repository secrets >
 # add secret key name (here CICD) > and add secret key
 
