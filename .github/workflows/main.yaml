@@ -29,7 +29,7 @@ jobs:
           artifacts: "build/app/outputs/flutter-apk/app-profile.apk"
           token: ${{ secrets.TOKEN }}
           commit: master
-          tag: v1.3.${{ github.run_number }}
+          tag: v1.0.0
 # - To get Token, go git project setting > Secrets and variables > Actions> Secrets > New repository secrets >
 # add secret key name (here CICD) > and add secret key
 
