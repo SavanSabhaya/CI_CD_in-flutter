@@ -1,41 +1,38 @@
+To add CI/CD into git for Flutter:
 
-on:
-  push:
-    branches: [ main ]
+-  Create project and upload it to Git
+
+- Go to Action > Dart (configure) > find Flutter Action from Marketplace
+
+- Then Create main.yaml file and add below script:
+
+on: push
+name: Test, Build and Release apk
 jobs:
   build:
+    name: Build APK
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu' # See 'Supported distributions' for available options
+          java-version: '16'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.10.4'
+      - run: flutter pub get
+      - run: flutter test
+      - run: flutter build apk --profile
+      - name: Build profile APK
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/flutter-apk/app-profile.apk"
+          token: ${{ secrets.CICD }}
+          commit: master
+          tag: v1.2.${{ github.run_number }}
 
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v1
+- To get Token, go git project setting > Secrets and variables > Actions> Secrets > New repository secrets >
+add secret key name (here CICD) > and add secret key
 
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Build and test
-        run: flutter test
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v1
-
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Build APK
-        run: flutter build apk
-
-      - name: Deploy to Firebase App Distribution
-        run: |
-          # Add commands to deploy your app to your desired deployment target
+To get secret key, go to git setting > developer settings > Personal access tokens > Tokens (classic) > Generate new token
